@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Container, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './Home.css';
 
 interface Column {
@@ -31,7 +31,8 @@ const Home = () => {
     const [postsLength, setPostsLength] = useState<number>(0);
     const rowsPerPage: number = 20;
     const [localPage, setLocalPage] = useState<number>(1);
-    const navigate = useNavigate();
+
+    const history = useHistory();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -67,7 +68,10 @@ const Home = () => {
     }
 
     const getDetails = (post: PostsInterface) => {
-        navigate(`/details/${post}`);
+        history.push({
+            pathname: '/details',
+            state: post
+        })
     }
 
     return (
